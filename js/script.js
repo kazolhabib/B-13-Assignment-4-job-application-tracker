@@ -597,7 +597,6 @@ function render() {
             </div>
             `;
     }
-
    
     if(rejectedList) {
         rejectedList.innerHTML = rejected.length > 0 
@@ -613,7 +612,6 @@ function render() {
             `;
     }
 }
-
 
 function updateStatus(id, type) {
     const job = total.find(j => j.id === id);
