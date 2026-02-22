@@ -15,7 +15,7 @@ let total = [
     "role": "Frontend Engineer",
     "type": "On-site • Full-time",
     "salary": "$90,000 - $120,000",
-    "status": "INTERVIEW",
+    "status": "NOT APPLIED",
     "description": "Design and implement highly performant user interfaces using React and Tailwind CSS for our enterprise clients."
   },
   {
@@ -24,7 +24,7 @@ let total = [
     "role": "Backend Developer",
     "type": "Remote • Contract",
     "salary": "$110,000 - $150,000",
-    "status": "REJECTED",
+    "status": "NOT APPLIED",
     "description": "Scale backend infrastructure using Node.js and AWS. Focus on building robust APIs for data-intensive applications."
   },
   {
@@ -42,7 +42,7 @@ let total = [
     "role": "Full Stack Developer",
     "type": "Remote • Full-time",
     "salary": "$140,000 - $190,000",
-    "status": "INTERVIEW",
+    "status": "NOT APPLIED",
     "description": "Develop and maintain end-to-end banking solutions. Experience with Next.js and PostgreSQL is highly preferred."
   },
   {
@@ -60,7 +60,7 @@ let total = [
     "role": "Data Scientist",
     "type": "Remote • Full-time",
     "salary": "$135,000 - $180,000",
-    "status": "REJECTED",
+    "status": "NOT APPLIED",
     "description": "Leverage machine learning models to derive insights from massive datasets and drive business decisions."
   },
   {
@@ -84,7 +84,23 @@ let rejectedCount = document.getElementById('rejected-count');
 const allFilterBtn = document.getElementById('all-filter-btn')
 const interviewFilterBtn = document.getElementById('interview-filter-btn')
 const rejectedFilterBtn = document.getElementById('rejected-filter-btn')
+
 const notAppliedBtn = document.querySelectorAll('.not-applied-btn');
+
+const jobList = document.getElementById('job-list');
+
+const mainContainer = document.querySelector('.main');
+
+
+function calculateCounts() {
+  totalCount.innerText = total.length; //8
+  interviewCount.innerText = interview.length;
+  rejectedCount.innerText = rejected.length;
+}
+calculateCounts();
+
+
+
 
 allFilterBtn.addEventListener('click', function() {
   currentTabs = 'all';
@@ -108,7 +124,7 @@ function renderJobs() {
 
   for (let job of total) {
     jobList.innerHTML += `
-      <div class="bg-white p-6 rounded-lg border border-[#F1F2F4] shadow-md mb-4">
+      <div job-id="${job.id}" class="bg-white p-6 rounded-lg border border-[#F1F2F4] shadow-md mb-4 hover:shadow-lg transition-shadow duration-300">
           <div class="flex justify-between items-start mb-5">
               <div class="">
                   <h3 class="job-title text-xl text-gray-700 font-bold mb-1">${job.company}</h3>
@@ -158,6 +174,7 @@ function renderJobs() {
           description: jobDescription
         }
         interview.push(job);
+        calculateCounts();
     }
     });
   });
@@ -191,6 +208,7 @@ function renderJobs() {
           description: jobDescription
         }
         rejected.push(job); 
+        calculateCounts();
         renderRejected();   
             
       
@@ -219,7 +237,7 @@ function renderInterview() {
 
   for (let job of interview) {
     jobList.innerHTML += `
-      <div class="bg-white p-6 rounded-lg border border-[#F1F2F4] shadow-md mb-4">
+      <div job-id="${job.id}" class="bg-white p-6 rounded-lg border border-[#F1F2F4] shadow-md mb-4">
           <div class="flex justify-between items-start mb-5">
               <div class="">
                   <h3 class="job-title text-xl text-gray-700 font-bold mb-1">${job.company}</h3>
@@ -257,6 +275,7 @@ function renderInterview() {
         const jobTitle = card.querySelector('.job-title').innerText;
         const jobRole = card.querySelector('.job-role').innerText;
         const jobSalary = card.querySelector('.job-salary-text').innerText;
+        const jobType = card.querySelector('.job-type').innerText;
         const jobDescription = card.querySelector('.job-description').innerText;
 
         const job = {
@@ -291,7 +310,11 @@ function renderInterview() {
         const jobType = card.querySelector('.job-type').innerText;
         const jobDescription = card.querySelector('.job-description').innerText;
 
+        const jobId = card.getAttribute('job-id');
+
         const job = {
+
+          jobId: jobId,
           company: jobTitle,
           role: jobRole,
           salary: jobSalary,
@@ -299,7 +322,16 @@ function renderInterview() {
           status: 'REJECTED',
           description: jobDescription
         }
+
+        const existingIndex = rejected.findIndex(j => j.jobId === jobId);
+        if (existingIndex !== -1) {
+          rejected[existingIndex] = job;
+        } else {
+          rejected.push(job);
+        }
+
         rejected.push(job); 
+        calculateCounts();
         renderRejected();   
             
       
@@ -325,7 +357,7 @@ function renderRejected() {
 
   for (let job of rejected) {
     jobList.innerHTML += `
-      <div class="bg-white p-6 rounded-lg border border-[#F1F2F4] shadow-md mb-4">
+      <div job-id="${job.id}" class="bg-white p-6 rounded-lg border border-[#F1F2F4] shadow-md mb-4">
           <div class="flex justify-between items-start mb-5">
               <div class="">
                   <h3 class="job-title text-xl text-gray-700 font-bold mb-1">${job.company}</h3>
@@ -375,6 +407,7 @@ function renderRejected() {
           description: jobDescription
         }
         interview.push(job);
+        calculateCounts();
     }
     });
   });
@@ -397,8 +430,10 @@ function renderRejected() {
         const jobSalary = card.querySelector('.job-salary-text').innerText;
         const jobType = card.querySelector('.job-type').innerText;
         const jobDescription = card.querySelector('.job-description').innerText;
+        const jobId = card.getAttribute('job-id');
 
         const job = {
+          jobId: jobId,
           company: jobTitle,
           role: jobRole,
           salary: jobSalary,
@@ -406,14 +441,19 @@ function renderRejected() {
           status: 'REJECTED',
           description: jobDescription
         }
-        rejected.push(job); 
+
+        const existingIndex = rejected.findIndex(j => j.jobId === jobId);
+        if (existingIndex !== -1) {
+          rejected[existingIndex] = job;
+        } else {
+          rejected.push(job);
+        }
+        calculateCounts();
         renderRejected();   
             
-      
   }});
   });
 }
-
     renderJobs();
     
     
