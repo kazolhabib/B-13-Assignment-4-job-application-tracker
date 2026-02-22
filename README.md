@@ -5,7 +5,7 @@ Ans:
 getElementById()
 ১। শুধু একটা নির্দিষ্ট id দিয়ে element নেয়।
 ২। সবসময় একটি element রিটার্ন করে।
-
+<br>
 getElementsByClassName()
 ১। একটি class এর সব element নেয়
 ২। এটি একটি HTMLCollection দেয় (array এর মতো)
