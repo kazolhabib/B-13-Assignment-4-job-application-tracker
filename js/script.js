@@ -122,14 +122,29 @@ function render() {
     document.getElementById('rejected-count').innerText = rejected.length;
     document.getElementById('total-jobs-count').innerText = total.length;
 
-    // if (currentTabs === 'all') {
-    //     totalJobsCount.innerText = total.length + " jobs";
-    // } else if (currentTabs === 'interview') {
+    document.getElementById('interview-filter-btn').addEventListener('click', () => {
+        currentTabs = 'interview';
+        render();
+    });
+
+    document.getElementById('rejected-filter-btn').addEventListener('click', () => {
+        currentTabs = 'rejected';
+        render();
+    });
+
+     document.getElementById('all-filter-btn').addEventListener('click', () => {
+        currentTabs = 'all';
+        render();
+    });
+
+    if (currentTabs === 'all') {
+        totalJobsCount.innerText = total.length + " jobs";
+    } else if (currentTabs === 'interview') {
        
-    //     totalJobsCount.innerText = interview.length + " of " + total.length;
-    // } else if (currentTabs === 'rejected') {
-    //     totalJobsCount.innerText = rejected.length + " of " + total.length;
-    // }
+        totalJobsCount.innerText = interview.length + " of " + total.length;
+    } else if (currentTabs === 'rejected') {
+        totalJobsCount.innerText = rejected.length + " of " + total.length;
+    }
 
     if(allList) {
         allList.innerHTML = total.map(job => createCardHTML(job)).join('');
