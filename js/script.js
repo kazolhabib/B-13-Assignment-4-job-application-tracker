@@ -122,18 +122,16 @@ function render() {
     document.getElementById('rejected-count').innerText = rejected.length;
     document.getElementById('total-jobs-count').innerText = total.length;
 
+    document.getElementById('all-filter-btn').addEventListener('click', () => {
+        currentTabs = 'all';
+        render();
+    });
     document.getElementById('interview-filter-btn').addEventListener('click', () => {
         currentTabs = 'interview';
         render();
     });
-
     document.getElementById('rejected-filter-btn').addEventListener('click', () => {
         currentTabs = 'rejected';
-        render();
-    });
-
-     document.getElementById('all-filter-btn').addEventListener('click', () => {
-        currentTabs = 'all';
         render();
     });
 
