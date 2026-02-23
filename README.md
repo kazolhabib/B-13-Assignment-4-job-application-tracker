@@ -23,9 +23,9 @@ document.body.appendChild(newDiv);
 
 ### 3. What is Event Bubbling? And how does it work?
 - একটা child element এ event হলে সেটা parent এর দিকে উপরে উঠতে থাকে।
-<div id="parent">
+<!-- <div id="parent">
   <button id="child">Click</button>
-</div>
+</div> -->
 যদি button এ click করি,
 তাহলে event আগে button এ যাবে, তারপর parent এ যাবে।
 মানে event নিচ থেকে উপরে যায়, এটাকেই বলে bubbling।

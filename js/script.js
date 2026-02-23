@@ -107,17 +107,29 @@ function createCardHTML(job) {
               <button onclick="updateStatus(${job.id}, 'interview')" class="btn btn-sm btn-outline btn-success">INTERVIEW</button>
               <button onclick="updateStatus(${job.id}, 'rejected')" class="btn btn-sm btn-outline btn-error">REJECTED</button>
           </div>
-      </div>`;
+      </div>
+      `;
 }
 
 function render() {
     const allList = document.getElementById('job-list');
     const interviewList = document.getElementById('interview-job-list');
     const rejectedList = document.getElementById('rejected-job-list');
+    const totalJobsCount = document.getElementById('total-jobs-count');
 
     document.getElementById('total-count').innerText = total.length;
     document.getElementById('interview-count').innerText = interview.length;
     document.getElementById('rejected-count').innerText = rejected.length;
+    document.getElementById('total-jobs-count').innerText = total.length;
+
+    // if (currentTabs === 'all') {
+    //     totalJobsCount.innerText = total.length + " jobs";
+    // } else if (currentTabs === 'interview') {
+       
+    //     totalJobsCount.innerText = interview.length + " of " + total.length;
+    // } else if (currentTabs === 'rejected') {
+    //     totalJobsCount.innerText = rejected.length + " of " + total.length;
+    // }
 
     if(allList) {
         allList.innerHTML = total.map(job => createCardHTML(job)).join('');
